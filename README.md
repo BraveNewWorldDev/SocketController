@@ -19,4 +19,4 @@ your node server from.
 
 *Example client* -
 * Open web browser
-* Navigate to http://<node server ip>/example.html
+* Navigate to http://*node server ip*/example.html
