@@ -1,0 +1,19 @@
+{
+  "name": "socket_controller",
+  "version": "0.0.0",
+  "description": "A server that accepts motion events from an iOS app and passes those along to a client app registered to receive those events",
+  "main": "server.js",
+  "dependencies": {
+    "node-static": "~0.6.2",
+    "socket.io": "~0.9.10",
+    "connect": "~2.5.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": "",
+  "author": "",
+  "license": "BSD"
+}

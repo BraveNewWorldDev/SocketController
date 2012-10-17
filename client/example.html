@@ -1,0 +1,56 @@
+<html>
+<head>
+    <title></title>
+    <style>
+        .btn{
+            position: absolute;
+            top: 200px;
+            left: 400px;
+        }
+    </style>
+</head>
+<body>
+<div id="stack">
+    <div class="btn" id="btn1"><img src="1.png" /></div>
+    <div class="btn" id="btn2"><img src="2.png" /></div>
+    <div class="btn" id="btn3"><img src="3.png" /></div>
+    <div class="btn" id="btn4"><img src="4.png" /></div>
+    <div class="btn" id="btn5"><img src="5.png" /></div>
+    <div class="btn" id="btn6"><img src="6.png" /></div>
+</div>
+<div>
+    <strong>ROLL</strong> <span id="roll">0.00</span>
+    <strong>YAW</strong> <span id="yaw">0.00</span>
+    <strong>PITCH</strong> <span id="pitch">0.00</span>
+    <strong>Add Controller</strong><input type="text" id="controller_id" />
+    <input id="add_controller_btn" type="submit" value="Add Controller" />
+</div>
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        var socket = io.connect('http://localhost');
+        socket.on('motion', function (data) {
+            var json_data = $.parseJSON(data);
+            var yaw = json_data.yaw;
+            var yaw_movement = -20 * (yaw/(Math.PI/4));
+
+            var roll = json_data.roll;
+            var roll_movement = 20 * (roll/(Math.PI/4));
+            for (var i=1; i<=6; i++){
+                $('#btn' + i).css('left', (400 + (yaw_movement * i)) + "px");
+                $('#btn' + i).css('top', (200 + (roll_movement * i)) + "px");
+            }
+            $('#roll').text(json_data.roll.toFixed(3));
+            $('#yaw').text(json_data.yaw.toFixed(3));
+            $('#pitch').text(json_data.pitch.toFixed(3));
+        });
+        $('#add_controller_btn').click(function(){
+            var register_data = {id: $('#controller_id').val()}
+            socket.emit('register', JSON.stringify(register_data));
+        });
+    });
+</script>
+</body>
+</html>
