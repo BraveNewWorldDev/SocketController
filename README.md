@@ -8,6 +8,7 @@ to pass the events in as close to realtime as possible.
 Installation
 ------------
 *iPhone app*
+
 Located under iphone/Controller is an .xcodeproj file which you can use with xcode to install the iPhone app.
 You will want to open controllerViewController.m and change the value for the node ip from 10.0.1.62 to wherever you are running
 your node server from.
